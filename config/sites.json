@@ -1,0 +1,46 @@
+{
+    "ttt": {
+        "name": "ttt.dn.ua",
+        "alias": "ttt",
+        "parser": "ParseTTT",
+        "links": [
+            "https://ttt.dn.ua/product-category/smartfony/",
+            "https://ttt.dn.ua/product-category/watch-fitness-bracelet/",
+            "https://ttt.dn.ua/product-category/accesories-xiaomi/",
+            "https://ttt.dn.ua/product-category/naushniki/"
+        ]
+    },
+    "mobitech": {
+        "name": "mobiteh.net",
+        "alias": "mobitech",
+        "parser": "ParseMobiTech",
+        "links": [
+            "https://www.mobiteh.net/category/xiaomi-gadgets/",
+            "https://www.mobiteh.net/category/mobilnye-telefony/"
+        ]
+    },
+    "foks": {
+        "name": "foks-donetsk",
+        "alias": "foks",
+        "parser": "ParseFoks",
+        "links": [
+            "https://foks-donetsk.com/category/smartfony/",
+            "https://foks-donetsk.com/category/planshety/",
+            "https://foks-donetsk.com/category/smart-chasy/",
+            "https://foks-donetsk.com/category/fitnes-braslety/"
+        ]
+    },
+    "donbass_smart": {
+        "name": "donbass_smart",
+        "alias": "donbass_smart",
+        "parser": "ParseDonSmart",
+        "links": [
+            "http://donbass-smart.ru/produkciya/folder/xiaomi",
+            "http://donbass-smart.ru/produkciya/folder/samsung-2",
+            "http://donbass-smart.ru/about/folder/realme",
+            "http://donbass-smart.ru/about/folder/planshety-xiaomi",
+            "http://donbass-smart.ru/about/folder/planshet-blackview",
+            "http://donbass-smart.ru/about/folder/smart-chasy-xiaomi"
+        ]
+    }
+}
