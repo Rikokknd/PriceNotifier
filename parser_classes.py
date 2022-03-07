@@ -50,6 +50,7 @@ class GeneralParser:
     def stop(self):
         if self._next_page and self._items:
             log.info("Переход на следующую страницу...")
+            print(self._next_page)
             self.__class__(self._next_page)
         del self
 
