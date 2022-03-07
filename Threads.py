@@ -63,12 +63,13 @@ def parsing_thread(site: dict):
 if __name__ == '__main__':
     sites = read_json()
     thread1 = threading.Thread(target=parsing_thread, args=(sites['ttt'],))
-    thread2 = threading.Thread(target=parsing_thread, args=(sites['mobitech'],))
-    thread3 = threading.Thread(target=parsing_thread, args=(sites['foks'],))
-    thread4 = threading.Thread(target=parsing_thread, args=(sites['donbass_smart'],))
-    thread9 = threading.Thread(target=send_notifications)
     thread1.start()
-    thread2.start()
+    # thread2 = threading.Thread(target=parsing_thread, args=(sites['mobitech'],))
+    # thread2.start()
+    thread3 = threading.Thread(target=parsing_thread, args=(sites['foks'],))
     thread3.start()
+    thread4 = threading.Thread(target=parsing_thread, args=(sites['donbass_smart'],))
     thread4.start()
+    thread9 = threading.Thread(target=send_notifications)
     thread9.start()
+
