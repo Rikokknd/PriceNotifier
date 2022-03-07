@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import time
 
 # my libs
 from data_structures import ParsedItem
@@ -50,6 +51,7 @@ class GeneralParser:
     def stop(self):
         if self._next_page and self._items:
             log.info("Переход на следующую страницу...")
+            time.sleep(5)
             print(self._next_page)
             self.__class__(self._next_page)
         del self
