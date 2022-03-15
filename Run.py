@@ -70,7 +70,7 @@ def send_notifications(particular_user=None, site_list=read_json().keys()):
 if __name__ == '__main__':
     sites = read_json()
     parse_site(sites['ttt'])
-    parse_site(sites['mobitech'])
+    # parse_site(sites['mobitech'])
     parse_site(sites['foks'])
     parse_site(sites['donbass_smart'])
     send_notifications()
