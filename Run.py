@@ -36,10 +36,8 @@ def parse_site(site: dict):
     except Exception as e:
         lib.log.exception("ОЙ!:")
         lib.exception_count += 1
-        bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"Ошибка при парсинге:\n{e}\n")
-
-    finally:
-        if lib.exception_count >= 5:
+        bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"Ошибка при парсинге:\n{e}\n{link}\n")
+        if lib.exception_count >= 3:
             lib.log.critical("Слишком много ошибок, отменяем задачу.")
             bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"НАСЯЛЬНИКЕ ПЕСДЕC")
             sys.exit()
@@ -48,26 +46,25 @@ def parse_site(site: dict):
 
 
 def send_notifications(particular_user=None, site_list=read_json().keys()):
+    lib.exception_count = 0
     for table in site_list:
         notifications.process_notifications(table)
     notifications.prepare_notifications_for_users()
     lib.log.info(f"Отправляем уведомления пользователям...")
     try:
         notifications.send_updates_to_users(particular_user)
+        lib.log.info(f"Отправили.")
     except Exception as e:
         lib.log.exception("ОЙ!:")
         lib.exception_count += 1
         time.sleep(5)
         bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"Ошибка при отправке сообщения:\n{e}\n")
-    finally:
-        if lib.exception_count >= 5:
+        if lib.exception_count >= 3:
             lib.log.critical("Слишком много ошибок, завершаем работу.")
             bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"НАСЯЛЬНИКЕ ПЕСДЕC")
             sys.exit()
         time.sleep(5)
         notifications.send_updates_to_users(particular_user)
-
-    lib.log.info(f"Отправили.")
 
 
 if __name__ == '__main__':
