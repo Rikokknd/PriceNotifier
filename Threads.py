@@ -38,7 +38,7 @@ def send_notifications(particular_user=None, site_list=read_json().keys()):
 
 def parsing_thread(site: dict):
     try:
-        with lock:
+        with lib.lock:
             run_parser.parse(site)
 
     except Exception as e:
