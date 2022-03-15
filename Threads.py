@@ -39,12 +39,8 @@ def send_notifications(particular_user=None, site_list=read_json().keys()):
 
 def parsing_thread(site: dict):
     try:
-        while True:
-            with lock:
-                run_parser.parse(site)
-                log.info("Отработали, новый запуск через 30 минут.")
-
-            time.sleep(1800)
+        with lock:
+            run_parser.parse(site)
 
     except Exception as e:
         log.exception("ОЙ!:")
@@ -52,8 +48,8 @@ def parsing_thread(site: dict):
         bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"Ошибка при парсинге:\n{e}\n")
 
     finally:
-        if lib.exception_count >= 25:
-            log.critical("Слишком много ошибок, завершаем работу.")
+        if lib.exception_count >= 5:
+            log.critical("Слишком много ошибок, отменяем задачу.")
             bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"НАСЯЛЬНИКЕ ПЕСДЕC")
             sys.exit()
         time.sleep(10)
@@ -72,4 +68,4 @@ if __name__ == '__main__':
     thread4.start()
     thread9 = threading.Thread(target=send_notifications)
     thread9.start()
-
+    log.info("Отработали, новый запуск через 30 минут.")

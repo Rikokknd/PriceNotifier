@@ -18,9 +18,9 @@ class MyBot(telegram.Bot):
         super().__init__(token=read_parameters('telegram')['token'], request=request.Request(con_pool_size=8))
 
 
-startup_time = datetime.now().strftime("%m_%d_%Y %H_%M_%S")
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                    level=logging.INFO, filename=f'logs/{startup_time}.log')
+                    level=logging.INFO, filename=f'logs/{datetime.now().strftime("%m_%d_%Y")}.log',
+                    filemode='a')
 log = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
 handler.setLevel(logging.DEBUG)
