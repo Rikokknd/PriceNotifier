@@ -18,8 +18,9 @@ class MyBot(telegram.Bot):
         super().__init__(token=read_parameters('telegram')['token'], request=request.Request(con_pool_size=8))
 
 
+log_path = f'/git-projects/PriceNotifier/logs/{datetime.now().strftime("%d_%m_%Y")}.log'
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                    level=logging.INFO, filename=f'logs/{datetime.now().strftime("%m_%d_%Y")}.log',
+                    level=logging.INFO, filename=log_path,
                     filemode='a')
 log = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
