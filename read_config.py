@@ -3,8 +3,10 @@ import json
 from inspect import getmembers
 from pprint import pprint
 
+project_path = '/git-projects/PriceNotifier/'
 
-def read_parameters(section, filename='config/config.ini'):
+
+def read_parameters(section, filename=project_path + 'config/config.ini'):
     # create a parser
     parser = ConfigParser(interpolation=None)
     # read config file
@@ -22,7 +24,7 @@ def read_parameters(section, filename='config/config.ini'):
     return output
 
 
-def read_json(file='config/sites.json'):
+def read_json(file=project_path + 'config/sites.json'):
     with open(file) as data:
         sites = json.load(data)
 

@@ -4,7 +4,6 @@ import sys
 # my libs
 import notifications
 import run_parser
-from lib import lock, log
 import lib
 import bot_control
 from read_config import read_json, read_parameters
@@ -12,7 +11,7 @@ from read_config import read_json, read_parameters
 
 def send_notifications(particular_user=None, site_list=read_json().keys()):
     while True:
-        with lock:
+        with lib.lock:
             for table in site_list:
                 notifications.process_notifications(table)
             notifications.prepare_notifications_for_users()
@@ -20,13 +19,13 @@ def send_notifications(particular_user=None, site_list=read_json().keys()):
             try:
                 notifications.send_updates_to_users(particular_user)
             except Exception as e:
-                log.exception("ОЙ!:")
+                lib.log.exception("ОЙ!:")
                 lib.exception_count += 1
                 time.sleep(5)
                 bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"Ошибка при отправке сообщения:\n{e}\n")
             finally:
                 if lib.exception_count >= 25:
-                    log.critical("Слишком много ошибок, завершаем работу.")
+                    lib.log.critical("Слишком много ошибок, завершаем работу.")
                     bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"НАСЯЛЬНИКЕ ПЕСДЕC")
                     sys.exit()
                 time.sleep(5)
@@ -43,13 +42,13 @@ def parsing_thread(site: dict):
             run_parser.parse(site)
 
     except Exception as e:
-        log.exception("ОЙ!:")
+        lib.log.exception("ОЙ!:")
         lib.exception_count += 1
         bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"Ошибка при парсинге:\n{e}\n")
 
     finally:
         if lib.exception_count >= 5:
-            log.critical("Слишком много ошибок, отменяем задачу.")
+            lib.log.critical("Слишком много ошибок, отменяем задачу.")
             bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"НАСЯЛЬНИКЕ ПЕСДЕC")
             sys.exit()
         time.sleep(10)
@@ -68,4 +67,4 @@ if __name__ == '__main__':
     thread4.start()
     thread9 = threading.Thread(target=send_notifications)
     thread9.start()
-    log.info("Отработали, новый запуск через 30 минут.")
+    lib.log.info("Отработали, новый запуск через 30 минут.")

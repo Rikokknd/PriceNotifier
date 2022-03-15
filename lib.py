@@ -9,7 +9,7 @@ import sys
 
 # my libs
 from postgre import Database
-from read_config import read_parameters
+from read_config import read_parameters, project_path
 
 
 @singleton
@@ -18,9 +18,8 @@ class MyBot(telegram.Bot):
         super().__init__(token=read_parameters('telegram')['token'], request=request.Request(con_pool_size=8))
 
 
-log_path = f'/git-projects/PriceNotifier/logs/{datetime.now().strftime("%d_%m_%Y")}.log'
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                    level=logging.INFO, filename=log_path,
+                    level=logging.INFO, filename=project_path + f'logs/{datetime.now().strftime("%d_%m_%Y")}.log',
                     filemode='a')
 log = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -28,7 +27,6 @@ handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 log.addHandler(handler)
-
 
 lock = Lock()
 DB = Database()
