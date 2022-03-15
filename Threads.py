@@ -1,6 +1,7 @@
 import threading
 import time
 import sys
+import requests
 # my libs
 import notifications
 import parse
