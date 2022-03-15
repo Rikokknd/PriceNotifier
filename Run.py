@@ -44,7 +44,7 @@ def parse_site(site: dict):
             bot_control.send_message(read_parameters('telegram')['my_tg_id'], f"НАСЯЛЬНИКЕ ПЕСДЕC")
             sys.exit()
         time.sleep(10)
-        parsing_thread(site)
+        parse_site(site)
 
 
 def send_notifications(particular_user=None, site_list=read_json().keys()):
