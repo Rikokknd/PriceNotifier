@@ -1,9 +1,10 @@
 import threading
 import time
 import sys
+import requests
 # my libs
 import notifications
-import run_parser
+import parse
 import lib
 import bot_control
 from read_config import read_json, read_parameters
@@ -39,7 +40,7 @@ def send_notifications(particular_user=None, site_list=read_json().keys()):
 def parsing_thread(site: dict):
     try:
         with lib.lock:
-            run_parser.parse(site)
+            parse.parse(site)
 
     except Exception as e:
         lib.log.exception("ОЙ!:")
