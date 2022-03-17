@@ -42,5 +42,15 @@
             "http://donbass-smart.ru/about/folder/planshet-blackview",
             "http://donbass-smart.ru/about/folder/smart-chasy-xiaomi"
         ]
+    },
+    "bq": {
+        "name": "bq",
+        "alias": "BQ",
+        "parser": "ParseBQ",
+        "links": [
+            "https://shop.bq.ru/smartfony/",
+            "https://shop.bq.ru/telefony/",
+            "https://shop.bq.ru/planshety/"
+        ]
     }
 }

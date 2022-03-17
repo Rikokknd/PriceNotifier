@@ -13,7 +13,7 @@ class GeneralParser:
     _main_soup: BeautifulSoup
     _items: list
 
-    def __init__(self, link):
+    def __init__(self, link, page=None):
         """Получает ссылку на страницу, которую нужно обработать(ссылки хранятся в конфиге).
                 Последовательно вызывает нужные методы."""
 
@@ -29,6 +29,7 @@ class GeneralParser:
         self._main_soup = BeautifulSoup(self._html, 'html.parser')
         self._items = []
         self._next_page = None
+        self._page_index = page
         self.parse_html()
         self.save_items()
         self.stop()
@@ -53,7 +54,7 @@ class GeneralParser:
             log.info("Переход на следующую страницу...")
             time.sleep(5)
             print(self._next_page)
-            self.__class__(self._next_page)
+            self.__class__(self._next_page, 2 if self._page_index is None else self._page_index + 1)
         del self
 
 
@@ -178,3 +179,33 @@ class ParseDonSmart(GeneralParser):
             self._items.append(get_item(item))
 
         # self._next_page = get_link_to_next_page(self._main_soup)
+
+
+class ParseBQ(GeneralParser):
+    _site = 'BQ'
+    _prefix = 'https://shop.bq.ru'
+
+    def parse_html(self):
+        """Обрабатывает страницу, сохраняет полученные элементы в массив items.
+        Если у открытой страницы есть продолжение, сохраняет ссылку на следующую страницу."""
+
+        def get_item(soup: BeautifulSoup):
+            """возвращает объект ParsedItem"""
+            item_name_raw = soup.find('a')['title']
+            item_name = re.sub(r'\\+', '/', item_name_raw)
+            item_link = soup.find('a')['href']
+            item_price_span = soup.find(attrs={"itemprop": "price"})
+            item_price = item_price_span['content']
+            return ParsedItem(self._site, item_name.replace("'", '"'), self._prefix + item_link, item_price)
+
+        def get_link_to_next_page() -> None:
+            if self._page_index is None:
+                self._next_page = self._link + f'?page=2'
+            else:
+                self._next_page = re.sub(r'\d+$', '', self._link) + str(self._page_index + 1)
+
+        list_of_item_soups = self._main_soup.findAll('li', class_='long-item')
+        for item in list_of_item_soups:
+            self._items.append(get_item(item))
+
+        get_link_to_next_page()
