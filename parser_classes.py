@@ -195,7 +195,7 @@ class ParseBQ(GeneralParser):
             item_name = re.sub(r'\\+', '/', item_name_raw)
             item_link = soup.find('a')['href']
             item_price_span = soup.find(attrs={"itemprop": "price"})
-            item_price = item_price_span['content']
+            item_price = int(item_price_span['content'])
             return ParsedItem(self._site, item_name.replace("'", '"'), self._prefix + item_link, item_price)
 
         def get_link_to_next_page() -> None:
