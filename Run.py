@@ -15,7 +15,9 @@ def parse_site(site: dict):
         parsers = {"ParseTTT": parser_classes.ParseTTT,
                    "ParseMobiTech": parser_classes.ParseMobiTech,
                    "ParseFoks": parser_classes.ParseFoks,
-                   "ParseDonSmart": parser_classes.ParseDonSmart}
+                   "ParseDonSmart": parser_classes.ParseDonSmart,
+                   "ParseBQ": parser_classes.ParseBQ,
+                   }
 
         def check_site(url):
             result = requests.get(url, headers={
