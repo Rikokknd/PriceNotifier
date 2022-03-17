@@ -74,5 +74,6 @@ if __name__ == '__main__':
     # parse_site(sites['mobitech'])
     parse_site(sites['foks'])
     parse_site(sites['donbass_smart'])
+    parse_site(sites['bq'])
     send_notifications()
     lib.log.info("Отработали, новый запуск через 30 минут.")
