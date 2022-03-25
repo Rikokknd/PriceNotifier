@@ -15,7 +15,9 @@ def parse_site(site: dict):
         parsers = {"ParseTTT": parser_classes.ParseTTT,
                    "ParseMobiTech": parser_classes.ParseMobiTech,
                    "ParseFoks": parser_classes.ParseFoks,
-                   "ParseDonSmart": parser_classes.ParseDonSmart}
+                   "ParseDonSmart": parser_classes.ParseDonSmart,
+                   "ParseBQ": parser_classes.ParseBQ,
+                   }
 
         def check_site(url):
             result = requests.get(url, headers={
@@ -29,7 +31,7 @@ def parse_site(site: dict):
             lib.log.info(f"Парсим {site['name']}...")
             if check_site(link) != 200:
                 lib.log.error(f"Не удалось подключиться! Код ошибки: {check_site(link)}")
-                return 0
+                raise Exception(f"Не удалось подключиться! Код ошибки: {check_site(link)}")
             parsers[site['parser']](link)
             lib.log.info("Обработка ссылки завершена.")
 
@@ -74,5 +76,6 @@ if __name__ == '__main__':
     # parse_site(sites['mobitech'])
     parse_site(sites['foks'])
     parse_site(sites['donbass_smart'])
+    parse_site(sites['bq'])
     send_notifications()
-    lib.log.info("Отработали, новый запуск через 30 минут.")
+
