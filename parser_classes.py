@@ -30,6 +30,7 @@ class GeneralParser:
         self._items = []
         self._next_page = None
         self._page_index = page
+        log.info(f'Обрабатываем {str(link)}')
         self.parse_html()
         self.save_items()
         self.stop()
@@ -50,8 +51,8 @@ class GeneralParser:
                 item.save_new_item()
 
     def stop(self):
+        log.info(f"Обнаружено {str(len(self._items))} товаров.")
         if self._next_page and self._items:
-            log.info("Переход на следующую страницу...")
             time.sleep(5)
             print(self._next_page)
             self.__class__(self._next_page, 2 if self._page_index is None else self._page_index + 1)
