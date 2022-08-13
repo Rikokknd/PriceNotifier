@@ -19,7 +19,7 @@ class GeneralParser:
 
         def get_html(url, params=None):
             result = requests.get(url, headers={
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
     'accept': '*/*'
 }, params=params)
             return result.text if result.status_code == 200 else self.stop()

@@ -6,4 +6,7 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
 /PriceNotifier_start.bat
+/config/config.ini
+/__pycache__/
