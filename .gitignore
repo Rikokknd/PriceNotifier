@@ -8,5 +8,6 @@
 /httpRequests/
 
 /PriceNotifier_start.bat
-/config/config.ini
-/__pycache__/
+config.ini
+__pycache__/
+.idea/
