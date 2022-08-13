@@ -2,10 +2,10 @@
 This is a real business solution, implemented to track prices on competitor's websites.
 
 Technologies/libs used:
-Hosting - Amazon EC2 micro server
-HTML scraping - requests, BeautifulSoup
-Database - PostgreSQL
-Telegram - python-telegram-bot
+Hosting - Amazon EC2 micro server;
+HTML scraping - requests, BeautifulSoup;
+Database - PostgreSQL;
+Telegram - python-telegram-bot;
 Log - logging
 
 Every launch, the parser scrapes links inside 'config/sites.json' file. Pulls an array of items from HTML page, checks with database if the product already exists in it, and if the price changed. If either is true, message is sent to telegram users specified in the database. Logging is also implemented. 
